@@ -122,6 +122,14 @@ interface StringResources {
     val commandDozeModeOnDetails: String
     val commandDozeModeOffTitle: String
     val commandDozeModeOffDetails: String
+    val commandScreenRotation0Title: String
+    val commandScreenRotation0Details: String
+    val commandScreenRotation90Title: String
+    val commandScreenRotation90Details: String
+    val commandScreenRotation180Title: String
+    val commandScreenRotation180Details: String
+    val commandScreenRotation270Title: String
+    val commandScreenRotation270Details: String
 
     val categoryUI: String
     val categoryCommunication: String

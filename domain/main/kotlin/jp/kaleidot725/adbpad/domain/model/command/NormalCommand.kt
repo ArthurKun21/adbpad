@@ -667,4 +667,64 @@ interface NormalCommand {
 
         override fun updateFavorite(isFavorite: Boolean): NormalCommand = copy(isFavorite = isFavorite)
     }
+
+    data class ScreenRotation0(
+        override val isRunning: Boolean = false,
+        override val isFavorite: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandScreenRotation0Title
+        override val details: String get() = Language.commandScreenRotation0Details
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system user_rotation 0"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.DISPLAY
+
+        override fun updateFavorite(isFavorite: Boolean): NormalCommand = copy(isFavorite = isFavorite)
+    }
+
+    data class ScreenRotation90(
+        override val isRunning: Boolean = false,
+        override val isFavorite: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandScreenRotation90Title
+        override val details: String get() = Language.commandScreenRotation90Details
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system user_rotation 1"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.DISPLAY
+
+        override fun updateFavorite(isFavorite: Boolean): NormalCommand = copy(isFavorite = isFavorite)
+    }
+
+    data class ScreenRotation180(
+        override val isRunning: Boolean = false,
+        override val isFavorite: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandScreenRotation180Title
+        override val details: String get() = Language.commandScreenRotation180Details
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system user_rotation 2"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.DISPLAY
+
+        override fun updateFavorite(isFavorite: Boolean): NormalCommand = copy(isFavorite = isFavorite)
+    }
+
+    data class ScreenRotation270(
+        override val isRunning: Boolean = false,
+        override val isFavorite: Boolean = false,
+    ) : NormalCommand {
+        override val title: String get() = Language.commandScreenRotation270Title
+        override val details: String get() = Language.commandScreenRotation270Details
+        override val requests: List<ShellCommandRequest> =
+            listOf(
+                ShellCommandRequest("settings put system user_rotation 3"),
+            )
+        override val category: NormalCommandCategory = NormalCommandCategory.DISPLAY
+
+        override fun updateFavorite(isFavorite: Boolean): NormalCommand = copy(isFavorite = isFavorite)
+    }
 }

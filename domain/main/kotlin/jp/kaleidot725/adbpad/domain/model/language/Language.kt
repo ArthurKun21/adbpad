@@ -245,6 +245,22 @@ object Language : StringResources {
         get() = getCurrentResources().commandDozeModeOffTitle
     override val commandDozeModeOffDetails: String
         get() = getCurrentResources().commandDozeModeOffDetails
+    override val commandScreenRotation0Title: String
+        get() = getCurrentResources().commandScreenRotation0Title
+    override val commandScreenRotation0Details: String
+        get() = getCurrentResources().commandScreenRotation0Details
+    override val commandScreenRotation90Title: String
+        get() = getCurrentResources().commandScreenRotation90Title
+    override val commandScreenRotation90Details: String
+        get() = getCurrentResources().commandScreenRotation90Details
+    override val commandScreenRotation180Title: String
+        get() = getCurrentResources().commandScreenRotation180Title
+    override val commandScreenRotation180Details: String
+        get() = getCurrentResources().commandScreenRotation180Details
+    override val commandScreenRotation270Title: String
+        get() = getCurrentResources().commandScreenRotation270Title
+    override val commandScreenRotation270Details: String
+        get() = getCurrentResources().commandScreenRotation270Details
 
     override val categoryUI: String
         get() = getCurrentResources().categoryUI
