@@ -18,7 +18,7 @@ import jp.kaleidot725.adbpad.domain.usecase.window.SaveWindowSizeUseCase
 import jp.kaleidot725.adbpad.ui.screen.command.CommandStateHolder
 import jp.kaleidot725.adbpad.ui.screen.device.DeviceSettingsStateHolder
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainAction
-import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
+import jp.kaleidot725.adbpad.domain.model.MainCategory
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainDialog
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainSideEffect
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainState

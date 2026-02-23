@@ -34,7 +34,7 @@ import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsAction
 import jp.kaleidot725.adbpad.ui.screen.device.state.DeviceSettingsSideEffect
 import jp.kaleidot725.adbpad.ui.screen.error.AdbErrorScreen
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainAction
-import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
+import jp.kaleidot725.adbpad.domain.model.MainCategory
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainDialog
 import jp.kaleidot725.adbpad.ui.screen.main.state.MainState
 import jp.kaleidot725.adbpad.ui.screen.newdisplay.ScrcpyNewDisplayScreen

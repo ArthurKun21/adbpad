@@ -1,6 +1,7 @@
 package jp.kaleidot725.adbpad.ui.screen.main.state
 
 import jp.kaleidot725.adbpad.core.mvi.MVIAction
+import jp.kaleidot725.adbpad.domain.model.MainCategory
 import jp.kaleidot725.adbpad.domain.model.device.Device
 import jp.kaleidot725.adbpad.domain.model.setting.WindowSize
 

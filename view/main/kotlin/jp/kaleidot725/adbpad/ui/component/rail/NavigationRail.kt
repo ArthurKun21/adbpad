@@ -19,7 +19,7 @@ import com.composables.icons.lucide.Lucide
 import com.composables.icons.lucide.MonitorSmartphone
 import com.composables.icons.lucide.Settings
 import jp.kaleidot725.adbpad.domain.model.language.Language
-import jp.kaleidot725.adbpad.ui.screen.main.state.MainCategory
+import jp.kaleidot725.adbpad.domain.model.MainCategory
 
 @Composable
 fun NavigationRail(

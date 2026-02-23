@@ -47,6 +47,7 @@ kotlin {
                 implementation(project(":core:utils"))
                 implementation(project(":data"))
                 implementation(project(":domain"))
+                implementation(project(":view"))
             }
         }
         val jvmTest by getting {
