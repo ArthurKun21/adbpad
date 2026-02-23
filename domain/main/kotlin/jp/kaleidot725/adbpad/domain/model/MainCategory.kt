@@ -1,4 +1,4 @@
-package jp.kaleidot725.adbpad.ui.screen.main.state
+package jp.kaleidot725.adbpad.domain.model
 
 enum class MainCategory {
     Command,
