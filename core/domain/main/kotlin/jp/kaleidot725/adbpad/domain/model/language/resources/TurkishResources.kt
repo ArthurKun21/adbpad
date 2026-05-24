@@ -15,6 +15,7 @@ object TurkishResources : StringResources {
     override val upload = "Karşıya yükle"
     override val download = "İndir"
     override val rename = "Yeniden adlandır"
+    override val createDirectory = "Dizin oluştur"
     override val tab = "Sekme"
     override val send = "Gönder"
     override val cancel = "İptal"

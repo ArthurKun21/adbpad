@@ -65,4 +65,10 @@ interface InstalledAppRepository {
         entry: AppFileEntry,
         name: String,
     ): Result<Unit, Exception>
+
+    suspend fun createAppDirectory(
+        device: Device,
+        parent: AppFileEntry.Directory,
+        name: String,
+    ): Result<Unit, Exception>
 }

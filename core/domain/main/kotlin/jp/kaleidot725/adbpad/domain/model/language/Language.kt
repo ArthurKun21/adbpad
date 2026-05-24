@@ -33,6 +33,8 @@ object Language : StringResources {
         get() = getCurrentResources().download
     override val rename: String
         get() = getCurrentResources().rename
+    override val createDirectory: String
+        get() = getCurrentResources().createDirectory
     override val send: String
         get() = getCurrentResources().send
     override val cancel: String

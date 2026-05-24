@@ -85,6 +85,12 @@ fun AppScreen(
                 onRefreshSdCardDataFileNode = { onAction(AppAction.RefreshAppFileNode(AppDataDirectory.SdCardData, it)) },
                 onRenameDataFileNode = { onAction(AppAction.RenameAppFileNode(AppDataDirectory.Data, it)) },
                 onRenameSdCardDataFileNode = { onAction(AppAction.RenameAppFileNode(AppDataDirectory.SdCardData, it)) },
+                onCreateDataFileDirectoryNode = {
+                    onAction(AppAction.CreateAppDirectoryNode(AppDataDirectory.Data, it))
+                },
+                onCreateSdCardDataFileDirectoryNode = {
+                    onAction(AppAction.CreateAppDirectoryNode(AppDataDirectory.SdCardData, it))
+                },
                 modifier = Modifier.fillMaxSize(),
             )
         },
@@ -93,6 +99,7 @@ fun AppScreen(
                 state = state.filePreview,
                 onSaveFile = { onAction(AppAction.SavePreviewFile) },
                 onOverwriteFile = { onAction(AppAction.OverwritePreviewFile) },
+                onDeleteFile = { onAction(AppAction.DeletePreviewFile) },
                 modifier = Modifier.fillMaxSize(),
             )
         },
@@ -120,7 +127,7 @@ private fun AppScreenPreview() {
                 selectedAppIndex = 0,
             ),
         onAction = {},
-        splitterState = rememberSplitPaneState(initialPositionPercentage = 0.25f),
-        rightSplitterState = rememberSplitPaneState(initialPositionPercentage = 0.7f),
+        splitterState = rememberSplitPaneState(initialPositionPercentage = 0.1f),
+        rightSplitterState = rememberSplitPaneState(initialPositionPercentage = 0.8f),
     )
 }

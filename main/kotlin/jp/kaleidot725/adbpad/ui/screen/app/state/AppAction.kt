@@ -1,7 +1,7 @@
 package jp.kaleidot725.adbpad.ui.screen.app.state
 
-import jp.kaleidot725.adbpad.domain.model.app.AppFileEntry
 import jp.kaleidot725.adbpad.domain.model.app.AppDataDirectory
+import jp.kaleidot725.adbpad.domain.model.app.AppFileEntry
 import jp.kaleidot725.adbpad.domain.model.app.InstalledApp
 import jp.kaleidot725.adbpad.domain.model.sort.SortType
 import jp.kaleidot725.pulse.mvi.PulseAction
@@ -67,7 +67,14 @@ sealed class AppAction : PulseAction {
         val entry: AppFileEntry,
     ) : AppAction()
 
+    data class CreateAppDirectoryNode(
+        val directory: AppDataDirectory,
+        val parent: AppFileEntry.Directory,
+    ) : AppAction()
+
     data object SavePreviewFile : AppAction()
 
     data object OverwritePreviewFile : AppAction()
+
+    data object DeletePreviewFile : AppAction()
 }

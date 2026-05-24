@@ -43,6 +43,8 @@ fun AppDetailPane(
     onRefreshSdCardDataFileNode: (AppFileEntry) -> Unit,
     onRenameDataFileNode: (AppFileEntry) -> Unit,
     onRenameSdCardDataFileNode: (AppFileEntry) -> Unit,
+    onCreateDataFileDirectoryNode: (AppFileEntry.Directory) -> Unit,
+    onCreateSdCardDataFileDirectoryNode: (AppFileEntry.Directory) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     if (app == null) {
@@ -100,6 +102,7 @@ fun AppDetailPane(
                     value = app.dataDir,
                 )
                 AppFileTreeView(
+                    root = app.dataDir.toAppFileRootDirectory(),
                     tree = dataFileTree,
                     selectedFile = selectedDataFile,
                     onSelectNode = onSelectDataFileNode,
@@ -108,6 +111,7 @@ fun AppDetailPane(
                     onDeleteNode = onDeleteDataFileNode,
                     onRefreshNode = onRefreshDataFileNode,
                     onRenameNode = onRenameDataFileNode,
+                    onCreateDirectoryNode = onCreateDataFileDirectoryNode,
                 )
             }
 
@@ -117,6 +121,7 @@ fun AppDetailPane(
                     value = app.sdCardDataDir,
                 )
                 AppFileTreeView(
+                    root = app.sdCardDataDir.toAppFileRootDirectory(),
                     tree = sdCardDataFileTree,
                     selectedFile = selectedSdCardDataFile,
                     onSelectNode = onSelectSdCardDataFileNode,
@@ -125,8 +130,19 @@ fun AppDetailPane(
                     onDeleteNode = onDeleteSdCardDataFileNode,
                     onRefreshNode = onRefreshSdCardDataFileNode,
                     onRenameNode = onRenameSdCardDataFileNode,
+                    onCreateDirectoryNode = onCreateSdCardDataFileDirectoryNode,
                 )
             }
         }
     }
 }
+
+private fun String.toAppFileRootDirectory(): AppFileEntry.Directory =
+    AppFileEntry.Directory(
+        name = substringAfterLast('/').ifBlank { this },
+        path = this,
+        permissions = "",
+        size = 0L,
+        date = "",
+        time = "",
+    )
