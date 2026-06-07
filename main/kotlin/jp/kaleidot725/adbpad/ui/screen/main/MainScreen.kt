@@ -259,11 +259,11 @@ private fun App(
         )
     val appSplitPaneState =
         rememberSplitPaneState(
-            initialPositionPercentage = 0.25f,
+            initialPositionPercentage = 0.1f,
         )
     val appRightSplitPaneState =
         rememberSplitPaneState(
-            initialPositionPercentage = 0.7f,
+            initialPositionPercentage = 0.8f,
         )
 
     Crossfade(state.language) {

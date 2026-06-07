@@ -15,6 +15,7 @@ object EnglishResources : StringResources {
     override val upload = "Upload"
     override val download = "Download"
     override val rename = "Rename"
+    override val createDirectory = "Create directory"
     override val tab = "Tab"
     override val send = "Send"
     override val cancel = "Cancel"

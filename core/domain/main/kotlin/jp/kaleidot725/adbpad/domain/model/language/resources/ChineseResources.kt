@@ -15,6 +15,7 @@ object ChineseResources : StringResources {
     override val upload = "上传"
     override val download = "下载"
     override val rename = "重命名"
+    override val createDirectory = "创建目录"
     override val tab = "标签"
     override val send = "发送"
     override val cancel = "取消"

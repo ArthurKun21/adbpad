@@ -60,8 +60,10 @@ class AppStateHolder(
                 is AppAction.DeleteAppFileNode -> reduceDeleteAppFileNode(uiAction.directory, uiAction.entry)
                 is AppAction.RefreshAppFileNode -> reduceRefreshAppFileNode(uiAction.directory, uiAction.entry)
                 is AppAction.RenameAppFileNode -> reduceRenameAppFileNode(uiAction.directory, uiAction.entry)
+                is AppAction.CreateAppDirectoryNode -> reduceCreateAppDirectoryNode(uiAction.directory, uiAction.parent)
                 AppAction.SavePreviewFile -> reduceSavePreviewFile()
                 AppAction.OverwritePreviewFile -> reduceOverwritePreviewFile()
+                AppAction.DeletePreviewFile -> reduceDeletePreviewFile()
             }
         }
     }
@@ -115,8 +117,46 @@ class AppStateHolder(
         }
     }
 
-    private fun AppFileEntry?.replaceIfSamePath(entry: AppFileEntry): AppFileEntry? =
-        if (this?.path == entry.path) entry else this
+    private suspend fun reduceDeletePreviewFile() {
+        val device = currentState.selectedDevice ?: return
+        val entry = currentState.filePreview.entry as? AppFileEntry.File ?: return
+        if (currentState.filePreview.isDeleting) return
+        if (!confirmDeleteAppFile(entry)) return
+
+        update {
+            copy(
+                filePreview =
+                    filePreview.copy(
+                        isDeleting = true,
+                        errorMessage = null,
+                    ),
+            )
+        }
+
+        val result = installedAppRepository.deleteAppFile(device, entry)
+        if (result.isOk) {
+            reloadCurrentAppFileTrees()
+            update {
+                copy(
+                    selectedDataFile = selectedDataFile?.takeUnless { it.path.isSameOrChildPath(entry.path) },
+                    selectedSdCardDataFile = selectedSdCardDataFile?.takeUnless { it.path.isSameOrChildPath(entry.path) },
+                    filePreview = AppFilePreviewState(),
+                )
+            }
+        } else {
+            update {
+                copy(
+                    filePreview =
+                        filePreview.copy(
+                            isDeleting = false,
+                            errorMessage = result.error.message ?: "Failed to delete file",
+                        ),
+                )
+            }
+        }
+    }
+
+    private fun AppFileEntry?.replaceIfSamePath(entry: AppFileEntry): AppFileEntry? = if (this?.path == entry.path) entry else this
 
     private suspend fun reduceUploadAppFileNode(
         directory: AppDataDirectory,
@@ -145,6 +185,26 @@ class AppStateHolder(
             }
         } else {
             showAppFileOperationError(Language.upload, result.error)
+        }
+    }
+
+    private suspend fun reduceCreateAppDirectoryNode(
+        directory: AppDataDirectory,
+        parentEntry: AppFileEntry.Directory,
+    ) {
+        val device = currentState.selectedDevice ?: return
+        val app = currentState.selectedApp ?: return
+        val directoryName = inputAppDirectoryName() ?: return
+
+        val result = installedAppRepository.createAppDirectory(device, parentEntry, directoryName)
+        if (result.isOk) {
+            if (parentEntry.path.trimEnd('/') == app.rootPath(directory).trimEnd('/')) {
+                refreshCurrentAppFileTree(directory)
+            } else {
+                refreshAppFileTreeDirectory(directory, parentEntry, expand = true)
+            }
+        } else {
+            showAppFileOperationError(Language.createDirectory, result.error)
         }
     }
 
@@ -465,6 +525,47 @@ class AppStateHolder(
                                 parent,
                                 "Name cannot contain /",
                                 Language.rename,
+                                JOptionPane.ERROR_MESSAGE,
+                            )
+                        }
+                        else -> {
+                            selectedName = name
+                            isSelecting = false
+                        }
+                    }
+                }
+            }
+            selectedName
+        }
+
+    private suspend fun inputAppDirectoryName(): String? =
+        withContext<String?>(Dispatchers.Swing) {
+            val parent = KeyboardFocusManager.getCurrentKeyboardFocusManager().activeWindow
+            var selectedName: String? = null
+            var isSelecting = true
+            while (isSelecting) {
+                val input =
+                    JOptionPane.showInputDialog(
+                        parent,
+                        Language.createDirectory,
+                        Language.createDirectory,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        null,
+                        "new_directory",
+                    ) as? String
+
+                if (input == null) {
+                    isSelecting = false
+                } else {
+                    val name = input.trim()
+                    when {
+                        name.isBlank() -> isSelecting = false
+                        name.contains("/") -> {
+                            JOptionPane.showMessageDialog(
+                                parent,
+                                "Name cannot contain /",
+                                Language.createDirectory,
                                 JOptionPane.ERROR_MESSAGE,
                             )
                         }

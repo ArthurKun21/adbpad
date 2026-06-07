@@ -22,7 +22,10 @@ internal fun AppFileTreeMessageRow(
         text = message,
         style = MaterialTheme.typography.bodySmall,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
-        modifier = modifier.fillMaxWidth().padding(start = (depth * 16).dp, top = 6.dp, bottom = 6.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(start = (depth * 16).dp, top = 6.dp, bottom = 6.dp),
         maxLines = 3,
         overflow = TextOverflow.Ellipsis,
     )

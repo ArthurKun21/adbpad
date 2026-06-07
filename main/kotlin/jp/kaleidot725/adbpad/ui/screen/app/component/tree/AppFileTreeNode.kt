@@ -45,6 +45,7 @@ internal fun AppFileTreeNode(
     onDeleteNode: (AppFileEntry) -> Unit,
     onRefreshNode: (AppFileEntry) -> Unit,
     onRenameNode: (AppFileEntry) -> Unit,
+    onCreateDirectoryNode: (AppFileEntry.Directory) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val isExpanded = tree.expandedPaths.contains(entry.path)
@@ -62,6 +63,7 @@ internal fun AppFileTreeNode(
                     onDeleteNode = onDeleteNode,
                     onRefreshNode = onRefreshNode,
                     onRenameNode = onRenameNode,
+                    onCreateDirectoryNode = onCreateDirectoryNode,
                 )
             },
         ) {
@@ -154,6 +156,7 @@ internal fun AppFileTreeNode(
                             onDeleteNode = onDeleteNode,
                             onRefreshNode = onRefreshNode,
                             onRenameNode = onRenameNode,
+                            onCreateDirectoryNode = onCreateDirectoryNode,
                         )
                     }
                 }
@@ -168,13 +171,17 @@ private fun appFileTreeNodeContextMenuItems(
     onDeleteNode: (AppFileEntry) -> Unit,
     onRefreshNode: (AppFileEntry) -> Unit,
     onRenameNode: (AppFileEntry) -> Unit,
+    onCreateDirectoryNode: (AppFileEntry.Directory) -> Unit,
 ): List<ContextMenuItem> =
-    listOf(
-        ContextMenuItem(label = Language.upload, onClick = { onUploadNode(entry) }),
-        ContextMenuItem(label = Language.delete, onClick = { onDeleteNode(entry) }),
-        ContextMenuItem(label = Language.tooltipRefresh, onClick = { onRefreshNode(entry) }),
-        ContextMenuItem(label = Language.rename, onClick = { onRenameNode(entry) }),
-    )
+    buildList {
+        add(ContextMenuItem(label = Language.upload, onClick = { onUploadNode(entry) }))
+        if (entry is AppFileEntry.Directory) {
+            add(ContextMenuItem(label = Language.createDirectory, onClick = { onCreateDirectoryNode(entry) }))
+        }
+        add(ContextMenuItem(label = Language.delete, onClick = { onDeleteNode(entry) }))
+        add(ContextMenuItem(label = Language.tooltipRefresh, onClick = { onRefreshNode(entry) }))
+        add(ContextMenuItem(label = Language.rename, onClick = { onRenameNode(entry) }))
+    }
 
 @Preview
 @Composable
@@ -196,6 +203,7 @@ private fun AppFileTreeNodePreview() {
         onDeleteNode = {},
         onRefreshNode = {},
         onRenameNode = {},
+        onCreateDirectoryNode = {},
         modifier = Modifier.width(280.dp).padding(16.dp),
     )
 }
